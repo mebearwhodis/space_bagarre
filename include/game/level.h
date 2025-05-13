@@ -18,12 +18,8 @@ namespace spacebagarre
                          fp friction,
                          GameContactListener* listener);
 
-    //TODO check array size
-    static constexpr std::array<crackitos_core::math::Vec2f, 60> platforms_bounds_ = {
-        {
-
-        }
-    };
+    //Use this if making obstacles (+check size)
+    // static constexpr std::array<crackitos_core::math::Vec2f, 60> platforms_bounds_ = {{}};
 } // spacebagarre
 
 #endif //SPACEBAGARRE_GAME_LEVEL_H_

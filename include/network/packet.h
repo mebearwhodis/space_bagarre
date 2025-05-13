@@ -24,7 +24,7 @@ namespace spacebagarre
 
     //--------------------------- Start Game ------------------------------
     //No need to implement it since it's just a signal with no payload,
-    // TODO will need to use something like this:
+    // Use something like this:
     // nByte eventCode = static_cast<nByte>(PacketType::kStartGame);
     // LoadBalancingClient::opRaiseEvent(eventCode, nullptr, 0, true);
 

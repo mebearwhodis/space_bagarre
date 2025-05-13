@@ -58,32 +58,42 @@ namespace spacebagarre
             std::cerr << "Failed to initialize SDL: " << SDL_GetError() << "\n";
         }
 
-        //TODO reorder
-
+        // 1. Window & Renderer
         StartWindow();
         StartRenderer();
+        game_window_ = GetWindow();
+        game_renderer_ = GetRenderer();
+
+        // 2. ImGui (UI Layer)
         StartImGui();
         imgui_enabled_ = true;
 
+        // 3. Game resources
         StartResourceManager();
 
-        game_window_ = GetWindow();
-        game_renderer_ = GetRenderer();
+        // 4. Physics setup
         contact_listener_.SetPlayerManager(&player_character_manager_);
         physics_world_.SetContactListener(&contact_listener_);
 
         crackitos_core::math::AABB world_bounds({0, 0}, {kWindowWidth, kWindowHeight});
         physics_world_.Initialize(world_bounds, false, {0, 981.0f});
+
+        // 5. Load level geometry
         CreateLevel(&physics_world_, &contact_listener_);
 
+        // 6. Input system
         StartInputManager();
 
+        // 7. Player & rollback systems
         rollback_manager_.RegisterPlayerManager(&player_character_manager_);
         rollback_manager_.RegisterPhysicsWorld(&physics_world_);
         player_character_manager_.RegisterWorld(&physics_world_, &contact_listener_);
         player_character_manager_.InitPlayers();
+
+        // 8. Initial rollback save
         rollback_manager_.SaveFirstConfirmedFrame();
     }
+
 
     void StopEngine()
     {
