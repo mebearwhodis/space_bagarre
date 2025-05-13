@@ -42,6 +42,29 @@ namespace spacebagarre
     private:
         std::array<PlayerCharacter, kMaxPlayers> players_{};
         crackitos_physics::physics::PhysicsWorld* world_ = nullptr;
+
+        struct PlayerContactListener : public crackitos_physics::physics::ContactListener
+        {
+            PlayerCharacterManager* manager = nullptr;
+
+            explicit PlayerContactListener(PlayerCharacterManager* mgr) : manager(mgr) {}
+
+            void OnCollisionEnter(const crackitos_physics::physics::ColliderPair& pair) override
+            {
+                manager->HandleCollision(pair);
+            }
+
+            void OnCollisionStay(const crackitos_physics::physics::ColliderPair&) override {}
+            void OnCollisionExit(const crackitos_physics::physics::ColliderPair&) override {}
+
+            void OnTriggerEnter(const crackitos_physics::physics::ColliderPair&) override {}
+            void OnTriggerStay(const crackitos_physics::physics::ColliderPair&) override {}
+            void OnTriggerExit(const crackitos_physics::physics::ColliderPair&) override {}
+        };
+
+        void HandleCollision(const crackitos_physics::physics::ColliderPair& pair);
+
+        PlayerContactListener contact_listener_{this};
     };
 
 } // spacebagarre

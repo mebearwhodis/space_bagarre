@@ -1,10 +1,13 @@
 ﻿#include "game/player_character_manager.h"
 
+#include <iostream>
+
 namespace spacebagarre
 {
     void PlayerCharacterManager::RegisterWorld(crackitos_physics::physics::PhysicsWorld* world)
     {
         world_ = world;
+        world_->SetContactListener(&contact_listener_);
     }
 
     void PlayerCharacterManager::InitPlayers()
@@ -159,5 +162,40 @@ namespace spacebagarre
             players_[i].shockwave_cooldown_ = other.players_[i].shockwave_cooldown_;
         }
     }
+
+    void PlayerCharacterManager::HandleCollision(const crackitos_physics::physics::ColliderPair& pair)
+    {
+        int idA = pair.colliderA.id;
+        int idB = pair.colliderB.id;
+
+        auto get_player_index = [&](int id) -> int {
+            for (int i = 0; i < kMaxPlayers; ++i)
+            {
+                if (players_[i].collider_.id == id)
+                    return i;
+            }
+            return -1;
+        };
+
+        int playerA = get_player_index(idA);
+        int playerB = get_player_index(idB);
+
+        if (playerA != -1 && playerB != -1)
+        {
+            // Player vs Player collision -> steal coin ?
+        }
+        else if (playerA != -1)
+        {
+            // PlayerA hit a wall or something else
+            std::cout << "[Collision] Player " << playerA << " collided with wall/object\n";
+        }
+        else if (playerB != -1)
+        {
+            // PlayerB hit a wall or something else
+            std::cout << "[Collision] Player " << playerB << " collided with wall/object\n";
+        }
+        // else: neither collider belongs to a player — ignore
+    }
+
 
 } // spacebagarre
