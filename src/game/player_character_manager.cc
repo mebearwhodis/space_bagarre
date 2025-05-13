@@ -22,20 +22,20 @@ namespace spacebagarre
                 start_position,
                 crackitos_core::math::Vec2f::Zero(),
                 true,
-                1.0f // mass
+                0.8f // mass
             );
             players_[i].body_ = world_->CreateBody(body_def);
 
             // Create Collider
             crackitos_core::math::AABB aabb(
-                crackitos_core::math::Vec2f(start_position.x - 8.0f, start_position.y - 16.0f),
-                crackitos_core::math::Vec2f(start_position.x + 8.0f, start_position.y + 16.0f)
+                crackitos_core::math::Vec2f(start_position.x - 36.0f, start_position.y - 57.0f),
+                crackitos_core::math::Vec2f(start_position.x + 36.0f, start_position.y + 57.0f)
             );
 
             crackitos_physics::physics::Collider collider_def(
                 aabb,
                 0.0f, // friction
-                0.0f, // bounciness
+                1.0f, // bounciness
                 false, // not a trigger
                 players_[i].body_
             );

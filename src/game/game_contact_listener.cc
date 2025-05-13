@@ -21,38 +21,7 @@ namespace spacebagarre
         ObjectType typeA = get_type(pair.colliderA);
         ObjectType typeB = get_type(pair.colliderB);
 
-        if (typeA == ObjectType::kPlayer && typeB == ObjectType::kCoin)
-        {
-            std::cout << "[Collision] Player picked up a coin (player: " << pair.colliderA.id << ", coin: " << pair.colliderB.id << ")\n";
-            if (player_manager_)
-            {
-                for (int i = 0; i < kMaxPlayers; ++i)
-                {
-                    if (player_manager_->GetPlayer(i).collider_.id == pair.colliderA.id)
-                    {
-                        player_manager_->AddScore(i, 100);
-                        break;
-                    }
-                }
-            }
-        }
-        else if (typeB == ObjectType::kPlayer && typeA == ObjectType::kCoin)
-        {
-            std::cout << "[Collision] Player picked up a coin (player: " << pair.colliderB.id << ", coin: " << pair.colliderA.id << ")\n";
-            if (player_manager_)
-            {
-                for (int i = 0; i < kMaxPlayers; ++i)
-                {
-                    if (player_manager_->GetPlayer(i).collider_.id == pair.colliderB.id)
-                    {
-                        player_manager_->AddScore(i, 100);
-                        break;
-                    }
-                }
-            }
-        }
-
-        else if (typeA == ObjectType::kPlayer && typeB == ObjectType::kWall)
+        if (typeA == ObjectType::kPlayer && typeB == ObjectType::kWall)
         {
             if (player_manager_)
             {
@@ -65,6 +34,15 @@ namespace spacebagarre
                         body.set_position(player_manager_->GetPlayerStartPosition(i));
                         body.set_velocity({0.0f, 0.0f});
                         player_manager_->GetMutablePlayer(i).respawn_timer_ = 3.0f;
+                        int current_score = player_manager_->GetScore(i);
+                        if (current_score >= 50)
+                        {
+                            player_manager_->AddScore(i, -50);
+                        }
+                        else
+                        {
+                            player_manager_->AddScore(i, -current_score);
+                        }
                     }
                 }
             }
@@ -82,13 +60,75 @@ namespace spacebagarre
                         body.set_position(player_manager_->GetPlayerStartPosition(i));
                         body.set_velocity({0.0f, 0.0f});
                         player_manager_->GetMutablePlayer(i).respawn_timer_ = 3.0f;
+                        int current_score = player_manager_->GetScore(i);
+                        if (current_score >= 50)
+                        {
+                            player_manager_->AddScore(i, -50);
+                        }
+                        else
+                        {
+                            player_manager_->AddScore(i, -current_score);
+                        }
                     }
                 }
             }
         }
         else if (typeA == ObjectType::kPlayer && typeB == ObjectType::kPlayer)
         {
-            std::cout << "[Collision] Player vs Player\n";
+
+        }
+
+}
+
+void GameContactListener::OnTriggerEnter(const crackitos_physics::physics::ColliderPair& pair)
+{
+    auto get_type = [&](const crackitos_physics::physics::ColliderHandle& handle) -> ObjectType
+    {
+        auto it = collider_type_map_.find(handle.id);
+        return it != collider_type_map_.end() ? it->second : ObjectType::kOther;
+    };
+
+    ObjectType typeA = get_type(pair.colliderA);
+    ObjectType typeB = get_type(pair.colliderB);
+    if ((typeA == ObjectType::kPlayer && typeB == ObjectType::kCoin) ||
+        (typeB == ObjectType::kPlayer && typeA == ObjectType::kCoin))
+    {
+        const int coin_id = (typeA == ObjectType::kCoin) ? pair.colliderA.id : pair.colliderB.id;
+        const int player_id = (typeA == ObjectType::kPlayer) ? pair.colliderA.id : pair.colliderB.id;
+
+        if (player_manager_ && coin_manager_)
+        {
+            // Only process if the coin is active
+            const auto& coins = coin_manager_->GetCoins();
+            for (int i = 0; i < coins.size(); ++i)
+            {
+                if (coins[i].collider_.id == coin_id && coins[i].active_)
+                {
+                    // Add score to player
+                    for (int p = 0; p < kMaxPlayers; ++p)
+                    {
+                        if (player_manager_->GetPlayer(p).collider_.id == player_id)
+                        {
+                            const int current_score = player_manager_->GetScore(p);
+                            if (current_score + 100 <= 999)
+                            {
+                                player_manager_->AddScore(p, 100);
+                            }
+                            else
+                            {
+                                player_manager_->AddScore(p, 999 - current_score);
+                            }
+                            break;
+                        }
+                    }
+
+                    // Deactivate coin
+                    coin_manager_->DeactivateCoinAt(i);
+                    break;
+                }
+            }
         }
     }
+}
+
 } // spacebagarre

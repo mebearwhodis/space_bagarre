@@ -10,7 +10,7 @@
 
 namespace spacebagarre
 {
-    constexpr FrameNumber kMaxFrameCount = 60 * 60 * 3; // 3 mins at 60fps
+    constexpr FrameNumber kMaxFrameCount = 60 * 60 * 2; // 2 mins at 60fps
     constexpr int kMaxInputs = 30;
 
     struct PlayerInput
