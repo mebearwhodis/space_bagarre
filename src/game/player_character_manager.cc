@@ -4,22 +4,17 @@
 
 namespace spacebagarre
 {
-    void PlayerCharacterManager::RegisterWorld(crackitos_physics::physics::PhysicsWorld* world)
+    void PlayerCharacterManager::RegisterWorld(crackitos_physics::physics::PhysicsWorld* world, GameContactListener* listener)
     {
         world_ = world;
-        world_->SetContactListener(&contact_listener_);
+        contact_listener_ = listener;
     }
 
     void PlayerCharacterManager::InitPlayers()
     {
         for (int i = 0; i < kMaxPlayers; ++i)
         {
-            crackitos_core::math::Vec2f start_position;
-            if (i == 0)
-                //TODO tableau en constexpr
-                start_position = {500.0f, 345.0f}; // Player 1 start
-            else
-                start_position = {1000.0f, 345.0f}; // Player 2 start
+            const crackitos_core::math::Vec2f start_position = kPlayerPositions[i];
 
             // Create Body
             crackitos_physics::physics::Body body_def(
@@ -45,7 +40,12 @@ namespace spacebagarre
                 players_[i].body_
             );
 
-            players_[i].collider_ = world_->CreateCollider(players_[i].body_, collider_def);
+            const auto collider_handle = world_->CreateCollider(players_[i].body_, collider_def);
+
+            players_[i].collider_ = collider_handle;
+
+            // Register player collider
+            contact_listener_->RegisterToListenerMap(ObjectType::kPlayer, collider_handle);
 
             players_[i].player_index_ = i;
         }
@@ -163,39 +163,29 @@ namespace spacebagarre
         }
     }
 
-    void PlayerCharacterManager::HandleCollision(const crackitos_physics::physics::ColliderPair& pair)
+    PlayerCharacter& PlayerCharacterManager::GetMutablePlayer(int index)
     {
-        int idA = pair.colliderA.id;
-        int idB = pair.colliderB.id;
-
-        auto get_player_index = [&](int id) -> int {
-            for (int i = 0; i < kMaxPlayers; ++i)
-            {
-                if (players_[i].collider_.id == id)
-                    return i;
-            }
-            return -1;
-        };
-
-        int playerA = get_player_index(idA);
-        int playerB = get_player_index(idB);
-
-        if (playerA != -1 && playerB != -1)
-        {
-            // Player vs Player collision -> steal coin ?
-        }
-        else if (playerA != -1)
-        {
-            // PlayerA hit a wall or something else
-            std::cout << "[Collision] Player " << playerA << " collided with wall/object\n";
-        }
-        else if (playerB != -1)
-        {
-            // PlayerB hit a wall or something else
-            std::cout << "[Collision] Player " << playerB << " collided with wall/object\n";
-        }
-        // else: neither collider belongs to a player — ignore
+        return players_.at(index);
     }
 
+    crackitos_physics::physics::Body& PlayerCharacterManager::GetMutableBody(int index)
+    {
+        return world_->GetMutableBody(players_[index].body_);
+    }
+
+    crackitos_core::math::Vec2f PlayerCharacterManager::GetPlayerStartPosition(int index) const
+    {
+        return kPlayerPositions[index];
+    }
+
+    int PlayerCharacterManager::GetScore(int player_index) const
+    {
+        return scores_.at(player_index);
+    }
+
+    void PlayerCharacterManager::AddScore(int player_index, int amount)
+    {
+        scores_.at(player_index) += amount;
+    }
 
 } // spacebagarre

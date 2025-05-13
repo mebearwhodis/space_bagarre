@@ -6,6 +6,7 @@
 #include <ostream>
 #include <game/input_manager.h>
 #include <engine/window.h>
+#include <game/game_contact_listener.h>
 #include <game/level.h>
 #include <game/player_character_manager.h>
 #include <game/rollback_manager.h>
@@ -41,6 +42,7 @@ namespace spacebagarre
         PlayerCharacterManager player_character_manager_;
         RollbackManager rollback_manager_;
         crackitos_physics::physics::PhysicsWorld physics_world_;
+        GameContactListener contact_listener_;
         NetworkClient network_client_;
 
         SDL_Window* game_window_;
@@ -56,6 +58,8 @@ namespace spacebagarre
             std::cerr << "Failed to initialize SDL: " << SDL_GetError() << "\n";
         }
 
+        //TODO reorder
+
         StartWindow();
         StartRenderer();
         StartImGui();
@@ -65,6 +69,20 @@ namespace spacebagarre
 
         game_window_ = GetWindow();
         game_renderer_ = GetRenderer();
+        contact_listener_.SetPlayerManager(&player_character_manager_);
+        physics_world_.SetContactListener(&contact_listener_);
+
+        crackitos_core::math::AABB world_bounds({0, 0}, {kWindowWidth, kWindowHeight});
+        physics_world_.Initialize(world_bounds, false, {0, 981.0f});
+        CreateLevel(&physics_world_, &contact_listener_);
+
+        StartInputManager();
+
+        rollback_manager_.RegisterPlayerManager(&player_character_manager_);
+        rollback_manager_.RegisterPhysicsWorld(&physics_world_);
+        player_character_manager_.RegisterWorld(&physics_world_, &contact_listener_);
+        player_character_manager_.InitPlayers();
+        rollback_manager_.SaveFirstConfirmedFrame();
     }
 
     void StopEngine()
@@ -240,18 +258,6 @@ namespace spacebagarre
     {
         StartEngine();
 
-        crackitos_core::math::AABB world_bounds({0, 0}, {kWindowWidth, kWindowHeight});
-        physics_world_.Initialize(world_bounds, false, {0, 981.0f});
-        CreateLevel(&physics_world_);
-
-        StartInputManager();
-
-        rollback_manager_.RegisterPlayerManager(&player_character_manager_);
-        rollback_manager_.RegisterPhysicsWorld(&physics_world_);
-        player_character_manager_.RegisterWorld(&physics_world_);
-        player_character_manager_.InitPlayers();
-        rollback_manager_.SaveFirstConfirmedFrame();
-        
         while (IsWindowOpen())
         {
             if (imgui_enabled_)

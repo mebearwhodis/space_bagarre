@@ -48,4 +48,3 @@ namespace spacebagarre
 
 #endif //SPACEBAGARRE_GAME_PLAYER_CHARACTER_H_
 
-//TODO make players die on touch, move them to their starting pos and set player.respawn_timer_ = 3.0f;

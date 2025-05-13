@@ -4,24 +4,30 @@
 #include <array>
 
 #include "game/player_character.h"
+#include <game/game_contact_listener.h>
 #include "physics_world.h"
 
 namespace spacebagarre
 {
-
-    constexpr int kMaxPlayers = 2;
-    constexpr fp kMoveSpeed = 100.0f; // Left/right speed
-    constexpr fp kMaxHorizontalSpeed = 200.0f; // horizontal clamp
-    constexpr fp kJumpImpulse = 300.0f; // Upward thrust strength
-    constexpr fp kJumpBufferTime = 0.1f; // 100ms window for buffered jump
-    constexpr fp kCoyoteTime = 0.1f; // 100ms coyote forgiveness
+    static constexpr int kMaxPlayers = 2;
+    static constexpr fp kMoveSpeed = 100.0f; // Left/right speed
+    static constexpr fp kMaxHorizontalSpeed = 200.0f; // horizontal clamp
+    static constexpr fp kJumpImpulse = 300.0f; // Upward thrust strength
+    static constexpr fp kJumpBufferTime = 0.1f; // 100ms window for buffered jump
+    static constexpr fp kCoyoteTime = 0.1f; // 100ms coyote forgiveness
+    static constexpr std::array<crackitos_core::math::Vec2f, kMaxPlayers> kPlayerPositions = {
+        {
+            {640.0f, 360.0f},
+            {1280.0f, 360.0f}
+        }
+    };
 
     class PlayerCharacterManager
     {
     public:
         PlayerCharacterManager() = default;
 
-        void RegisterWorld(crackitos_physics::physics::PhysicsWorld* world);
+        void RegisterWorld(crackitos_physics::physics::PhysicsWorld* world, GameContactListener* listener);
         void InitPlayers();
         void Update();
         void Deinit();
@@ -38,35 +44,19 @@ namespace spacebagarre
 
         void CopyFrom(const PlayerCharacterManager& other);
 
+        PlayerCharacter& GetMutablePlayer(int index);
+        crackitos_physics::physics::Body& GetMutableBody(int index);
+        crackitos_core::math::Vec2f GetPlayerStartPosition(int index) const;
+
+        int GetScore(int player_index) const;
+        void AddScore(int player_index, int amount);
 
     private:
         std::array<PlayerCharacter, kMaxPlayers> players_{};
+        std::array<int, kMaxPlayers> scores_{};
         crackitos_physics::physics::PhysicsWorld* world_ = nullptr;
-
-        struct PlayerContactListener : public crackitos_physics::physics::ContactListener
-        {
-            PlayerCharacterManager* manager = nullptr;
-
-            explicit PlayerContactListener(PlayerCharacterManager* mgr) : manager(mgr) {}
-
-            void OnCollisionEnter(const crackitos_physics::physics::ColliderPair& pair) override
-            {
-                manager->HandleCollision(pair);
-            }
-
-            void OnCollisionStay(const crackitos_physics::physics::ColliderPair&) override {}
-            void OnCollisionExit(const crackitos_physics::physics::ColliderPair&) override {}
-
-            void OnTriggerEnter(const crackitos_physics::physics::ColliderPair&) override {}
-            void OnTriggerStay(const crackitos_physics::physics::ColliderPair&) override {}
-            void OnTriggerExit(const crackitos_physics::physics::ColliderPair&) override {}
-        };
-
-        void HandleCollision(const crackitos_physics::physics::ColliderPair& pair);
-
-        PlayerContactListener contact_listener_{this};
+        GameContactListener* contact_listener_ = nullptr;
     };
-
 } // spacebagarre
 
 #endif // SPACEBAGARRE_GAME_PLAYER_CHARACTER_MANAGER_H_
