@@ -1,0 +1,22 @@
+﻿{
+    "name": "ideal-potato",
+    "version-string": "1.0",
+    "builtin-baseline": "460551b0ec06be1ba6b918448bf3b0f44add813d",
+    "dependencies": [
+        {
+            "name": "imgui",
+            "features": [ "sdl3-binding" ]
+        },
+        "sdl3",
+        {
+            "name": "sdl3-image",
+            "features": ["png"]
+        }
+    ],
+    "features": {
+        "profiling": {
+            "description": "Profiling with tracy",
+            "dependencies": [ "tracy" ]
+        }
+    }
+}
