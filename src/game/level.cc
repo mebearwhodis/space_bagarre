@@ -7,7 +7,7 @@
 #include "shape.h"
 #include "vec2.h"
 
-namespace idealpotato
+namespace spacebagarre
 {
     void CreateLevel(crackitos_physics::physics::PhysicsWorld* world)
     {
@@ -72,4 +72,4 @@ namespace idealpotato
         crackitos_physics::physics::Collider collider_def(aabb, 0.0f, friction, false, body_);
         world->CreateCollider(body_, collider_def);
     }
-} // idealpotato
+} // spacebagarre

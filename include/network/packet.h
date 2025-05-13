@@ -1,5 +1,5 @@
-﻿#ifndef IDEALPOTATO_PACKET_H
-#define IDEALPOTATO_PACKET_H
+﻿#ifndef SPACEBAGARRE_NETWORK_PACKET_H_
+#define SPACEBAGARRE_NETWORK_PACKET_H_
 
 #include <array>
 #include <sstream>
@@ -11,7 +11,7 @@
 #include "Common-cpp/inc/CustomType.h"
 
 
-namespace idealpotato
+namespace spacebagarre
 {
     enum class PacketType : nByte
     {
@@ -174,6 +174,6 @@ namespace idealpotato
     private:
         DesyncPacket desync_packet_;
     };
-} // namespace idealpotato
+} // spacebagarre
 
-#endif // IDEALPOTATO_PACKET_H
+#endif // SPACEBAGARRE_NETWORK_PACKET_H_

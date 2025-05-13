@@ -1,12 +1,12 @@
-﻿#ifndef IDEALPOTATO_PLAYER_CHARACTER_MANAGER_H
-#define IDEALPOTATO_PLAYER_CHARACTER_MANAGER_H
+﻿#ifndef SPACEBAGARRE_GAME_PLAYER_CHARACTER_MANAGER_H_
+#define SPACEBAGARRE_GAME_PLAYER_CHARACTER_MANAGER_H_
 
 #include <array>
 
 #include "game/player_character.h"
 #include "physics_world.h"
 
-namespace idealpotato
+namespace spacebagarre
 {
 
     constexpr int kMaxPlayers = 2;
@@ -43,6 +43,6 @@ namespace idealpotato
         crackitos_physics::physics::PhysicsWorld* world_ = nullptr;
     };
 
-} // namespace idealpotato
+} // spacebagarre
 
-#endif // IDEALPOTATO_PLAYER_CHARACTER_MANAGER_H
+#endif // SPACEBAGARRE_GAME_PLAYER_CHARACTER_MANAGER_H_

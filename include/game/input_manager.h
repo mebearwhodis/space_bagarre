@@ -1,5 +1,5 @@
-﻿#ifndef INPUT_MANAGER_H
-#define INPUT_MANAGER_H
+﻿#ifndef SPACEBAGARRE_GAME_INPUT_MANAGER_H_
+#define SPACEBAGARRE_GAME_INPUT_MANAGER_H_
 
 #include <vector>
 #include <SDL3/SDL_events.h>
@@ -8,7 +8,7 @@
 #include "vec2.h"
 #include "commons/commons.h"
 
-namespace idealpotato
+namespace spacebagarre
 {
     constexpr FrameNumber kMaxFrameCount = 60 * 60 * 3; // 3 mins at 60fps
     constexpr int kMaxInputs = 30;
@@ -58,6 +58,6 @@ namespace idealpotato
     // void ClearSavedInputs();
 
     bool IsPlayerConnected(int player_id);
-} // idealpotato
+} // spacebagarre
 
-#endif //INPUT_MANAGER_H
+#endif //SPACEBAGARRE_GAME_INPUT_MANAGER_H_

@@ -2,7 +2,7 @@
 #include <Common-cpp/inc/JString.h>
 #include <iostream>
 
-namespace idealpotato
+namespace spacebagarre
 {
     namespace
     {
@@ -88,6 +88,7 @@ namespace idealpotato
 
     void NetworkClient::customEventAction(int playerNr, nByte eventCode, const ExitGames::Common::Object& eventContent)
     {
+        //TODO find workaround to check without impeding on Start flag
         // if (eventContent.getType() != ExitGames::Common::TypeCode::CUSTOM)
         // {
         //     std::cerr << "Invalid event type: " << eventContent.getType() << "\n";
@@ -153,24 +154,6 @@ namespace idealpotato
                     rollback_manager_->SetRemoteInputs(remote_inputs, /*player_id=*/remote_id);
                 }
 
-                // bool has_non_zero_input = false;
-                // for (uint8_t i = 0; i < pkt.input_size; ++i)
-                // {
-                //     const auto& input = pkt.inputs_table[i];
-                //     if (input.move_x_ != 0 || input.move_y_ != 0 || input.jump_ || input.grab_)
-                //     {
-                //         has_non_zero_input = true;
-                //         break;
-                //     }
-                // }
-                //
-                // if (has_non_zero_input)
-                // {
-                //     std::cout << "Received inputs from player " << static_cast<int>(sender_id)
-                //         << " for frame " << frame
-                //         << " with " << static_cast<int>(pkt.input_size) << " input(s)\n";
-                // }
-
                 break;
             }
 
@@ -179,19 +162,6 @@ namespace idealpotato
                 const auto& wrapper =
                     ExitGames::Common::ValueObject<ConfirmFrameSerializer>(eventContent).getDataCopy();
                 const ConfirmFramePacket& pkt = wrapper.GetPacket();
-
-                // std::cout << "[ConfirmFrame] Frame: " << pkt.confirm_frame << ", Checksum: " << pkt.confirm_value <<
-                //     "\n";
-                // for (int i = 0; i < kMaxPlayers; ++i)
-                // {
-                //     const PlayerInput& input = pkt.input[i];
-                //     std::cout << "  Player[" << i << "] Input: {"
-                //         << " x=" << input.move_x_
-                //         << ", y=" << input.move_y_
-                //         << ", j=" << input.jump_
-                //         << ", g=" << input.grab_
-                //         << " }\n";
-                // }
 
                 break;
             }
@@ -287,4 +257,4 @@ namespace idealpotato
     void NetworkClient::leaveRoomReturn(int, const ExitGames::Common::JString&)
     {
     }
-} // namespace idealpotato
+} // spacebagarre

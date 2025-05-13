@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace idealpotato
+namespace spacebagarre
 {
     void RollbackManager::RegisterPlayerManager(PlayerCharacterManager* player_manager) noexcept
     {
@@ -143,4 +143,4 @@ namespace idealpotato
         return result;
     }
 
-} // namespace idealpotato
+} // spacebagarre

@@ -1,6 +1,6 @@
 ﻿#include <network/packet.h>
 
-namespace idealpotato
+namespace spacebagarre
 {
     bool PingSerializer::compare(const ExitGames::Common::CustomTypeBase& other) const
     {
@@ -171,4 +171,4 @@ namespace idealpotato
     {
         return retStr = L"DesyncPacket";
     }
-} //namespace idealpotato
+} // spacebagarre

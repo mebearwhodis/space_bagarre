@@ -1,12 +1,12 @@
-﻿#ifndef PLAYER_CHARACTER_H
-#define PLAYER_CHARACTER_H
+﻿#ifndef SPACEBAGARRE_GAME_PLAYER_CHARACTER_H_
+#define SPACEBAGARRE_GAME_PLAYER_CHARACTER_H_
 #include <game/input_manager.h>
 
 #include "body.h"
 #include "collider.h"
 #include "physics_world.h"
 
-namespace idealpotato
+namespace spacebagarre
 {
     struct PlayerCharacterState
     {
@@ -44,6 +44,6 @@ namespace idealpotato
         [[nodiscard]] PlayerCharacterState SaveState(const crackitos_physics::physics::PhysicsWorld& world) const;
         void LoadState(const PlayerCharacterState& state, crackitos_physics::physics::PhysicsWorld& world);
     };
-} // idealpotato
+} // spacebagarre
 
-#endif //PLAYER_CHARACTER_H
+#endif //SPACEBAGARRE_GAME_PLAYER_CHARACTER_H_

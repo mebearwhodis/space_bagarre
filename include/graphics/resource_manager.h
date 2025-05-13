@@ -1,10 +1,10 @@
-﻿#ifndef RESOURCE_MANAGER_H
-#define RESOURCE_MANAGER_H
+﻿#ifndef SPACEBAGARRE_GRAPHICS_RESOURCE_MANAGER_H_
+#define SPACEBAGARRE_GRAPHICS_RESOURCE_MANAGER_H_
 
 #include <string>
 #include <SDL3/SDL.h>
 
-namespace idealpotato
+namespace spacebagarre
 {
     struct TextureResource
     {
@@ -20,6 +20,6 @@ namespace idealpotato
 
     bool LoadTexture(const std::string& id, const std::string& filepath);
     TextureResource* GetTextureResource(const std::string& id);
-} // idealpotato
+} // spacebagarre
 
-#endif //RESOURCE_MANAGER_H
+#endif //SPACEBAGARRE_GRAPHICS_RESOURCE_MANAGER_H_

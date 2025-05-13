@@ -5,7 +5,7 @@
 #include <graphics/renderer.h>
 
 
-namespace idealpotato
+namespace spacebagarre
 {
     void StartImGui()
     {
@@ -20,4 +20,4 @@ namespace idealpotato
         ImGui_ImplSDL3_Shutdown();
         ImGui::DestroyContext();
     }
-}
+} // spacebagarre

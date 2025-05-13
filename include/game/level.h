@@ -1,9 +1,9 @@
-﻿#ifndef LEVEL_H
-#define LEVEL_H
+﻿#ifndef SPACEBAGARRE_GAME_LEVEL_H_
+#define SPACEBAGARRE_GAME_LEVEL_H_
 #include "physics_world.h"
 #include "commons/commons.h"
 
-namespace idealpotato
+namespace spacebagarre
 {
     void CreateLevel(crackitos_physics::physics::PhysicsWorld* world);
     void CreateStaticAABBFromCorners(crackitos_physics::physics::PhysicsWorld* world,
@@ -77,6 +77,6 @@ namespace idealpotato
             {1001.0f, 329.0f}
         }
     };
-} // idealpotato
+} // spacebagarre
 
-#endif //LEVEL_H
+#endif //SPACEBAGARRE_GAME_LEVEL_H_

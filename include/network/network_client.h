@@ -1,12 +1,12 @@
-﻿#ifndef IDEALPOTATO_NETWORK_CLIENT_H
-#define IDEALPOTATO_NETWORK_CLIENT_H
+﻿#ifndef SPACEBAGARRE_NETWORK_NETWORK_CLIENT_H_
+#define SPACEBAGARRE_NETWORK_NETWORK_CLIENT_H_
 
 #include <game/rollback_manager.h>
 
 #include "network_manager.h"
 #include "packet.h"
 
-namespace idealpotato
+namespace spacebagarre
 {
     enum class State
     {
@@ -62,6 +62,6 @@ namespace idealpotato
         void leaveRoomReturn(int, const ExitGames::Common::JString&) override;
     };
 
-} // namespace idealpotato
+} // spacebagarre
 
-#endif // IDEALPOTATO_NETWORK_CLIENT_H
+#endif // SPACEBAGARRE_NETWORK_NETWORK_CLIENT_H_

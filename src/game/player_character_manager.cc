@@ -1,6 +1,6 @@
 ﻿#include "game/player_character_manager.h"
 
-namespace idealpotato
+namespace spacebagarre
 {
     void PlayerCharacterManager::RegisterWorld(crackitos_physics::physics::PhysicsWorld* world)
     {
@@ -176,4 +176,4 @@ namespace idealpotato
         }
     }
 
-} // idealpotato
+} // spacebagarre

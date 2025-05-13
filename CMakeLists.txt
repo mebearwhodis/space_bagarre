@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.18)
-project(IdealPotato)
+project(SpaceBagarre)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -12,7 +12,7 @@ if (ENABLE_PROFILING)
 endif()
 
 # ---- Externals ----
-add_subdirectory(externals/physics_923)
+add_subdirectory(externals/crackitos_physics)
 find_package(imgui CONFIG REQUIRED)
 find_package(sdl3 CONFIG REQUIRED)
 find_package(sdl3_image CONFIG REQUIRED)

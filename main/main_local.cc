@@ -4,6 +4,6 @@
 int main(int argc, char** argv)
 {
     timer.Tick();
-    idealpotato::RunOfflineGame();
+    spacebagarre::RunOfflineGame();
     return 0;
 }

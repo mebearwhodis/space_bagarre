@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace idealpotato
+namespace spacebagarre
 {
     namespace
     {
@@ -26,7 +26,6 @@ namespace idealpotato
         is_open_ = true;
     }
 
-    //TODO where to use that
     void StopWindow()
     {
         SDL_DestroyWindow(window_);
@@ -41,10 +40,6 @@ namespace idealpotato
             {
                 is_open_ = false;
             }
-            //Add Events function from the input manager
-            //Add Imgui Events
-
-            //Add resize?
         }
     }
 
@@ -62,4 +57,4 @@ namespace idealpotato
     {
         return window_;
     }
-} // idealpotato
+} // spacebagarre

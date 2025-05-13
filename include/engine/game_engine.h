@@ -1,11 +1,11 @@
 ﻿
-#ifndef GAME_ENGINE_H
-#define GAME_ENGINE_H
+#ifndef SPACEBAGARRE_ENGINE_GAME_ENGINE_H_
+#define SPACEBAGARRE_ENGINE_GAME_ENGINE_H_
 #include <SDL3/SDL_render.h>
 
 #include "timer.h"
 
-namespace idealpotato {
+namespace spacebagarre {
 
     void StartEngine();
     void RunEngine();
@@ -14,6 +14,6 @@ namespace idealpotato {
     void RunOfflineGame();
     void RunOnlineGame();
     void DisplayOnlineLobby();
-} // idealpotato
+} // spacebagarre
 
-#endif //GAME_ENGINE_H
+#endif //SPACEBAGARRE_ENGINE_GAME_ENGINE_H_

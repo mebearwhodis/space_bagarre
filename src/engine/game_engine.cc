@@ -18,14 +18,13 @@
 #include "commons/commons.h"
 
 #include "body.h"
-#include "collider.h"
 #include "physics_world.h"
 #include "timer.h"
 #include "vec2.h"
 
 #include "game/player_character.h"
 
-namespace idealpotato
+namespace spacebagarre
 {
     namespace
     {
@@ -166,33 +165,6 @@ namespace idealpotato
                 pkt.input_size = static_cast<uint8_t>(recent_inputs.size());
 
                 std::copy(recent_inputs.begin(), recent_inputs.end(), pkt.inputs_table.begin());
-
-
-                // bool has_non_zero_input = false;
-                // for (const auto& input : recent_inputs)
-                // {
-                //     if (input.move_x_ != 0 || input.move_y_ != 0 || input.jump_ || input.grab_)
-                //     {
-                //         has_non_zero_input = true;
-                //         break;
-                //     }
-                // }
-                //
-                // if (has_non_zero_input)
-                // {
-                //     std::cout << "[SendInput] P" << local_player_id << ": sending "
-                //         << static_cast<int>(pkt.input_size) << " inputs from frame "
-                //         << (confirmed_frame + 1) << " to " << current_frame << "\n";
-                //
-                //     for (const auto& input : recent_inputs)
-                //     {
-                //         std::cout << "  MoveX: " << input.move_x_
-                //             << ", MoveY: " << input.move_y_
-                //             << ", Jump: " << input.jump_
-                //             << ", Grab: " << input.grab_ << "\n";
-                //     }
-                // }
-
 
                 network_client_.SendInputPacket(pkt);
 
@@ -357,4 +329,4 @@ namespace idealpotato
 
         StopEngine();
     }
-} // idealpotato
+} // spacebagarre

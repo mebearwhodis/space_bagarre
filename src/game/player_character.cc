@@ -1,7 +1,7 @@
 ﻿
 #include "game/player_character.h"
 
-namespace idealpotato {
+namespace spacebagarre {
     PlayerCharacterState PlayerCharacter::SaveState(const crackitos_physics::physics::PhysicsWorld& world) const
     {
         PlayerCharacterState state;
@@ -31,4 +31,4 @@ namespace idealpotato {
         body.set_velocity(state.velocity_);
     }
 
-} // idealpotato
+} // spacebagarre

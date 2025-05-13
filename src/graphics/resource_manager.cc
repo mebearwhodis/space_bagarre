@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include <iostream>
 
-namespace idealpotato
+namespace spacebagarre
 {
     static std::unordered_map<std::string, TextureResource> textures;
 
@@ -84,4 +84,4 @@ namespace idealpotato
         return (it != textures.end()) ? &it->second : nullptr;
     }
 }
-// idealpotato
+// spacebagarre

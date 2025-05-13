@@ -1,5 +1,5 @@
-﻿#ifndef ROLLBACK_MANAGER_H
-#define ROLLBACK_MANAGER_H
+﻿#ifndef SPACEBAGARRE_GAME_ROLLBACK_MANAGER_H_
+#define SPACEBAGARRE_GAME_ROLLBACK_MANAGER_H_
 #include <array>
 #include <vector>
 
@@ -7,7 +7,7 @@
 #include "game/input_manager.h"
 #include "game/player_character_manager.h"
 
-namespace idealpotato
+namespace spacebagarre
 {
     class RollbackManager
     {
@@ -50,5 +50,5 @@ namespace idealpotato
         std::array<crackitos_physics::physics::PhysicsWorld, kMaxFrameCount> saved_physics_states_;
         std::array<std::array<PlayerCharacterState, kMaxPlayers>, kMaxFrameCount> saved_player_states_;
     };
-} // namespace idealpotato
-#endif
+} // spacebagarre
+#endif //SPACEBAGARRE_GAME_ROLLBACK_MANAGER_H_

@@ -7,7 +7,7 @@
 #include <imgui_impl_sdlrenderer3.h>
 #include <view/imgui_menu.h>
 
-using namespace idealpotato;
+using namespace spacebagarre;
 
 int main(int argc, char* argv[])
 {

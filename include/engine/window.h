@@ -1,10 +1,10 @@
-﻿#ifndef WINDOW_H
-#define WINDOW_H
+﻿#ifndef SPACEBAGARRE_ENGINE_WINDOW_H_
+#define SPACEBAGARRE_ENGINE_WINDOW_H_
 
 #include <utility>
 #include <SDL3/SDL.h>
 
-namespace idealpotato
+namespace spacebagarre
 {
     static constexpr int kWindowWidth = 1920;
     static constexpr int kWindowHeight = 1080;
@@ -17,6 +17,6 @@ namespace idealpotato
 
     bool IsWindowOpen();
     SDL_Window* GetWindow();
-} // idealpotato
+} // spacebagarre
 
-#endif //WINDOW_H
+#endif //SPACEBAGARRE_ENGINE_WINDOW_H_

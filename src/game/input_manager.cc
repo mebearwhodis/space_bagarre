@@ -2,23 +2,16 @@
 
 #include <iostream>
 
-namespace idealpotato
+namespace spacebagarre
 {
     namespace
     {
         SDL_Gamepad* gamepad_player_one_ = nullptr;
         SDL_Gamepad* gamepad_player_two_ = nullptr;
-
-        // std::vector<PlayerInput> player_inputs_;
-        // std::string input_logs_path_;
     } // namespace
 
     void StartInputManager()
     {
-        // player_inputs_.clear();
-        // player_inputs_.reserve(kMaxFrameCount); //10 minutes at 60fps
-
-
         // Load controller mappings from file
         if (SDL_AddGamepadMappingsFromFile("data/gamecontrollerdb.txt") < 0)
         {
@@ -141,32 +134,6 @@ namespace idealpotato
         return input;
     }
 
-    // void SavePlayerInput()
-    // {
-    //     player_inputs_.push_back(GetPlayerInput(0));
-    // }
-    //
-    // const std::vector<PlayerInput>& GetSavedInputs()
-    // {
-    //     return player_inputs_;
-    // }
-
-    // std::vector<PlayerInput> GetRecentInputs(FrameNumber from, FrameNumber to)
-    // {
-    //     std::vector<PlayerInput> recent;
-    //     for (FrameNumber i = from + 1; i <= to && i < static_cast<FrameNumber>(player_inputs_.size()); ++i)
-    //     {
-    //         recent.push_back(player_inputs_[i]);
-    //     }
-    //     return recent;
-    // }
-
-
-    // void ClearSavedInputs()
-    // {
-    //     player_inputs_.clear();
-    // }
-
     bool IsPlayerConnected(int player_id)
     {
         if (player_id == 0)
@@ -176,4 +143,4 @@ namespace idealpotato
 
         return false;
     }
-} // idealpotato
+} // spacebagarre

@@ -1,15 +1,14 @@
-﻿
-#ifndef RENDERER_H
-#define RENDERER_H
+﻿#ifndef SPACEBAGARRE_GRAPHICS_RENDERER_H_
+#define SPACEBAGARRE_GRAPHICS_RENDERER_H_
 #include <SDL3/SDL_render.h>
 
-namespace idealpotato
+namespace spacebagarre
 {
     void StartRenderer();
     void StopRenderer();
 
     SDL_Renderer* GetRenderer();
-}
+} //spacebagarre
 
 
-#endif //RENDERER_H
+#endif //SPACEBAGARRE_GRAPHICS_RENDERER_H_

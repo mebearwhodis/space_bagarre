@@ -1,9 +1,9 @@
-﻿#ifndef COMMONS_HH_
-#define COMMONS_HH_
+﻿#ifndef SPACEBAGARRE_COMMONS_COMMONS_H_
+#define SPACEBAGARRE_COMMONS_COMMONS_H_
 
-namespace idealpotato
+namespace spacebagarre
 {
     using fp = float;
     using FrameNumber = int;
-}
-#endif //COMMONS_HH_
+} // spacebagarre
+#endif //SPACEBAGARRE_COMMONS_COMMONS_H_

@@ -2,7 +2,7 @@
 
 #include <engine/window.h>
 
-namespace idealpotato
+namespace spacebagarre
 {
     namespace
     {
@@ -23,4 +23,4 @@ namespace idealpotato
     {
         return renderer_;
     }
-}
+} // spacebagarre

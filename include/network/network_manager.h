@@ -1,10 +1,10 @@
 
-#ifndef IDEALPOTATO_NETWORK_MANAGER_H
-#define IDEALPOTATO_NETWORK_MANAGER_H
+#ifndef SPACEBAGARRE_NETWORK_NETWORK_MANAGER_H_
+#define SPACEBAGARRE_NETWORK_NETWORK_MANAGER_H_
 
 #include <LoadBalancing-cpp/inc/Client.h>
 
-namespace idealpotato
+namespace spacebagarre
 {
 
 class ClientInterface : public ExitGames::LoadBalancing::Listener
@@ -19,8 +19,8 @@ void End();
 };
 ExitGames::LoadBalancing::Client& GetLoadBalancingClient();
 
-} // namespace idealpotato
+} // spacebagarre
 
 
 
-#endif //IDEALPOTATO_NETWORK_MANAGER_H
+#endif //SPACEBAGARRE_NETWORK_NETWORK_MANAGER_H_
