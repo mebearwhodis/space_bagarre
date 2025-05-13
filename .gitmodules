@@ -1,0 +1,6 @@
+[submodule "externals/crackitos_core"]
+	path = externals/crackitos_core
+	url = https://github.com/SAE-Geneve/Crackitos_core.git
+[submodule "externals/crackitos_physics"]
+	path = externals/crackitos_physics
+	url = https://github.com/SAE-Geneve/Physics_923.git
