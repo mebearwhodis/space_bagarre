@@ -18,14 +18,14 @@ namespace spacebagarre
         int move_x_ = 0;
         int move_y_ = 0;
         bool jump_ = false;
-        bool grab_ = false;
+        bool shockwave_ = false;
 
         bool operator==(const PlayerInput& rhs) const noexcept
         {
             return move_x_ == rhs.move_x_
                 && move_y_ == rhs.move_y_
                 && jump_ == rhs.jump_
-                && grab_ == rhs.grab_;
+                && shockwave_ == rhs.shockwave_;
         }
 
         bool operator!=(const PlayerInput& rhs) const noexcept
@@ -38,7 +38,7 @@ namespace spacebagarre
             move_x_ = 0;
             move_y_ = 0;
             jump_ = false;
-            grab_ = false;
+            shockwave_ = false;
         }
     };
 

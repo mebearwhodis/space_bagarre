@@ -13,7 +13,7 @@ namespace spacebagarre
 
     void StartWindow()
     {
-        window_ = SDL_CreateWindow("Ideal Potato",
+        window_ = SDL_CreateWindow("Space Bagarre",
                                    window_size_.first,
                                    window_size_.second,
                                    0);

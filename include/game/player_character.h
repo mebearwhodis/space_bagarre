@@ -11,10 +11,9 @@ namespace spacebagarre
     struct PlayerCharacterState
     {
         PlayerInput input_{};
-        bool is_grounded_ = false;
-        bool is_jumping_ = false;
-        fp jump_buffer_timer_ = 0.0f;
-        fp coyote_timer_ = 0.0f;
+        bool jump_button_pressed_ = false;
+        fp respawn_timer_ = 0.0f;
+        fp shockwave_cooldown_ = 0.0f;
 
         crackitos_core::math::Vec2f position_{};
         crackitos_core::math::Vec2f velocity_{};
@@ -29,17 +28,18 @@ namespace spacebagarre
 
         // --- Basic player state
         int player_index_ = 0;
-
-        // --- Input snapshot for this frame
         PlayerInput input_{};
 
         // --- Jump
-        bool is_grounded_ = false;
         bool jump_button_pressed_ = false;
-        bool is_jumping_ = false;
 
-        fp jump_buffer_timer_ = 0.0f;
-        fp coyote_timer_ = 0.0f;
+        // --- Timers
+        fp respawn_timer_ = 0.0f;
+        fp shockwave_cooldown_ = 0.0f;
+
+        // --- Helpers
+        [[nodiscard]] bool IsRespawning() const { return respawn_timer_ > 0.0f; }
+        [[nodiscard]] bool CanUseShockwave() const { return shockwave_cooldown_ <= 0.0f; }
 
         [[nodiscard]] PlayerCharacterState SaveState(const crackitos_physics::physics::PhysicsWorld& world) const;
         void LoadState(const PlayerCharacterState& state, crackitos_physics::physics::PhysicsWorld& world);
@@ -47,3 +47,5 @@ namespace spacebagarre
 } // spacebagarre
 
 #endif //SPACEBAGARRE_GAME_PLAYER_CHARACTER_H_
+
+//TODO make players die on touch, move them to their starting pos and set player.respawn_timer_ = 3.0f;

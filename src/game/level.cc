@@ -13,30 +13,24 @@ namespace spacebagarre
     {
         //Screen borders
         //Lower
-        crackitos_core::math::Vec2f half_size = {(kWindowWidth + 100.f) / 2.0f, 15.0f};
+        crackitos_core::math::Vec2f half_size = {(kWindowWidth + 100.f) / 2.0f, 27.0f};
         crackitos_core::math::Vec2f position = {kWindowWidth / 2.0f, kWindowHeight};
         CreateStaticAABB(world, half_size, position, 0.0f);
 
         //Upper
-        half_size = {(kWindowWidth + 100.f) / 2.0f, 25.0f};
-        position = {kWindowWidth / 2.0f, 0.0f - half_size.y};
+        half_size = {(kWindowWidth + 100.f) / 2.0f, 27.0f};
+        position = {kWindowWidth / 2.0f, 0.0f};
         CreateStaticAABB(world, half_size, position, 0.0f);
 
         //Left
-        half_size = {25.0f, kWindowHeight / 2.0f};
-        position = {0.0f - half_size.x, kWindowHeight / 2.0f};
+        half_size = {27.0f, kWindowHeight / 2.0f};
+        position = {0.0f, kWindowHeight / 2.0f};
         CreateStaticAABB(world, half_size, position, 0.0f);
 
         //Right
-        half_size = {kWindowWidth + 25.0f, kWindowHeight / 2.0f};
-        position = {kWindowWidth + half_size.x, kWindowHeight / 2.0f};
+        half_size = {27.0f, kWindowHeight / 2.0f};
+        position = {kWindowWidth, kWindowHeight / 2.0f};
         CreateStaticAABB(world, half_size, position, 0.0f);
-
-        //Platforms
-        for (int i = 0; i < platforms_bounds_.size(); i = i + 2)
-        {
-            CreateStaticAABBFromCorners(world, platforms_bounds_[i], platforms_bounds_[i+1], 0.0f);
-        }
     }
 
     void CreateStaticAABBFromCorners(crackitos_physics::physics::PhysicsWorld* world,

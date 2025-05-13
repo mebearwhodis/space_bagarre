@@ -57,7 +57,7 @@ namespace spacebagarre
             input.move_x_ = static_cast<int8_t>(data[header_size_ + i * 4 + 0]);
             input.move_y_ = static_cast<int8_t>(data[header_size_ + i * 4 + 1]);
             input.jump_ = data[header_size_ + i * 4 + 2];
-            input.grab_ = data[header_size_ + i * 4 + 3];
+            input.shockwave_ = data[header_size_ + i * 4 + 3];
             input_packet_.inputs_table[i] = input;
         }
     }
@@ -76,7 +76,7 @@ namespace spacebagarre
                 data[header_size_ + i * 4 + 0] = static_cast<int8_t>(input.move_x_);
                 data[header_size_ + i * 4 + 1] = static_cast<int8_t>(input.move_y_);
                 data[header_size_ + i * 4 + 2] = static_cast<uint8_t>(input.jump_);
-                data[header_size_ + i * 4 + 3] = static_cast<uint8_t>(input.grab_);
+                data[header_size_ + i * 4 + 3] = static_cast<uint8_t>(input.shockwave_);
                 //TODO sizeof playerinput etc.
             }
         }
@@ -115,7 +115,7 @@ namespace spacebagarre
             input.move_x_ = static_cast<int8_t>(data[base + 0]);
             input.move_y_ = static_cast<int8_t>(data[base + 1]);
             input.jump_ = data[base + 2];
-            input.grab_ = data[base + 3];
+            input.shockwave_ = data[base + 3];
             confirm_frame_packet_.input[i] = input;
         }
     }
@@ -134,7 +134,7 @@ namespace spacebagarre
                 data[base + 0] = static_cast<int8_t>(input.move_x_);
                 data[base + 1] = static_cast<int8_t>(input.move_y_);
                 data[base + 2] = static_cast<uint8_t>(input.jump_);
-                data[base + 3] = static_cast<uint8_t>(input.grab_);
+                data[base + 3] = static_cast<uint8_t>(input.shockwave_);
             }
         }
         return static_cast<short>(6 + kMaxPlayers * 4);

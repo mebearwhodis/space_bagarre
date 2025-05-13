@@ -6,10 +6,9 @@ namespace spacebagarre {
     {
         PlayerCharacterState state;
         state.input_ = input_;
-        state.is_grounded_ = is_grounded_;
-        state.is_jumping_ = is_jumping_;
-        state.jump_buffer_timer_ = jump_buffer_timer_;
-        state.coyote_timer_ = coyote_timer_;
+        state.jump_button_pressed_ = jump_button_pressed_;
+        state.respawn_timer_ = respawn_timer_;
+        state.shockwave_cooldown_ = shockwave_cooldown_;
 
         const auto& body = world.GetBody(body_);
         state.position_ = body.position();
@@ -21,10 +20,9 @@ namespace spacebagarre {
     void PlayerCharacter::LoadState(const PlayerCharacterState& state, crackitos_physics::physics::PhysicsWorld& world)
     {
         input_ = state.input_;
-        is_grounded_ = state.is_grounded_;
-        is_jumping_ = state.is_jumping_;
-        jump_buffer_timer_ = state.jump_buffer_timer_;
-        coyote_timer_ = state.coyote_timer_;
+        jump_button_pressed_ = state.jump_button_pressed_;
+        respawn_timer_ = state.respawn_timer_;
+        shockwave_cooldown_ = state.shockwave_cooldown_;
 
         auto& body = world.GetMutableBody(body_);
         body.set_position(state.position_);

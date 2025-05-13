@@ -104,7 +104,7 @@ namespace spacebagarre
             input.jump_ =
                 SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_EAST) ||
                 SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_SOUTH);
-            input.grab_ =
+            input.shockwave_ =
                 SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_WEST) ||
                 SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_NORTH);
         }
@@ -119,7 +119,7 @@ namespace spacebagarre
                 if (keys[SDL_SCANCODE_A]) input.move_x_ = -1.0f;
 
                 input.jump_ = keys[SDL_SCANCODE_SPACE] || keys[SDL_SCANCODE_W];
-                input.grab_ = keys[SDL_SCANCODE_LSHIFT];
+                input.shockwave_ = keys[SDL_SCANCODE_LSHIFT];
             }
             else if (player_id == 1) // player two keys (optional)
             {
@@ -127,7 +127,7 @@ namespace spacebagarre
                 if (keys[SDL_SCANCODE_LEFT]) input.move_x_ = -1.0f;
 
                 input.jump_ = keys[SDL_SCANCODE_UP];
-                input.grab_ = keys[SDL_SCANCODE_RSHIFT];
+                input.shockwave_ = keys[SDL_SCANCODE_RSHIFT];
             }
         }
 

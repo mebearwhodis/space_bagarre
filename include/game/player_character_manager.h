@@ -10,8 +10,9 @@ namespace spacebagarre
 {
 
     constexpr int kMaxPlayers = 2;
-    constexpr fp kMoveSpeed = 100.0f; // Run speed
-    constexpr fp kJumpImpulse = 400.0f; // Upward jump strength
+    constexpr fp kMoveSpeed = 100.0f; // Left/right speed
+    constexpr fp kMaxHorizontalSpeed = 200.0f; // horizontal clamp
+    constexpr fp kJumpImpulse = 300.0f; // Upward thrust strength
     constexpr fp kJumpBufferTime = 0.1f; // 100ms window for buffered jump
     constexpr fp kCoyoteTime = 0.1f; // 100ms coyote forgiveness
 

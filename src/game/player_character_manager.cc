@@ -54,67 +54,53 @@ namespace spacebagarre
         {
             crackitos_physics::physics::Body& body = world_->GetMutableBody(player.body_);
 
+            //Timers
+            if (player.respawn_timer_ > 0.0f)
+            {
+                player.respawn_timer_ -= 1.0f / 60.0f;
+
+                // Freeze position + ignore input
+                body.set_velocity(crackitos_core::math::Vec2f::Zero());
+                continue; // skip rest of update
+            }
+
+            if (player.shockwave_cooldown_ > 0.0f)
+            {
+                player.shockwave_cooldown_ -= 1.0f / 60.0f;
+            }
+
+
             // Apply left/right movement only
-            crackitos_core::math::Vec2f velocity{player.input_.move_x_ * kMoveSpeed, 0.0f}; //Y is locked
-            body.ApplyForce(velocity);
-            //TODO cap velocity (horizontally but also vertically, when falling)
+            crackitos_core::math::Vec2f horizontal_velocity{player.input_.move_x_ * kMoveSpeed, 0.0f}; //Y is locked
+            body.ApplyForce(horizontal_velocity);
 
-            // Jump timers
-            if (player.jump_buffer_timer_ > 0.0f)
-            {
-                player.jump_buffer_timer_ -= 1.0f / 60.0f;
-            }
-            if (player.coyote_timer_ > 0.0f)
-            {
-                player.coyote_timer_ -= 1.0f / 60.0f;
-            }
+            // Cap horizontal velocity
+            crackitos_core::math::Vec2f velocity = body.velocity();
+            if (velocity.x > kMaxHorizontalSpeed)
+                velocity.x = kMaxHorizontalSpeed;
+            else if (velocity.x < -kMaxHorizontalSpeed)
+                velocity.x = -kMaxHorizontalSpeed;
+            // Don't touch vertical velocity
+            body.set_velocity(velocity);
 
-            // Jump input
-            if (player.input_.jump_)
-            {
-                player.jump_buffer_timer_ = kJumpBufferTime;
-            }
-
-            // Update grounded state
-            if (std::abs(body.velocity().y) <= 0.01f)
-            {
-                player.is_grounded_ = true;
-                player.is_jumping_ = false;
-            }
-            else
-            {
-                player.is_grounded_ = false;
-            }
-
-            // Coyote time
-            if (player.is_grounded_)
-            {
-                player.coyote_timer_ = kCoyoteTime; // refresh coyote timer while grounded
-            }
-
-            // Attempt jump
-            if (player.is_grounded_ && player.jump_buffer_timer_ > 0.0f && player.coyote_timer_ >= 0.0f)
+            // Flap mechanic: apply upward impulse when jump is pressed
+            if (player.input_.jump_ && !player.jump_button_pressed_)
             {
                 body.ApplyImpulse(crackitos_core::math::Vec2f(0.0f, -kJumpImpulse));
-                player.is_grounded_ = false; // immediately mark airborne
-                player.is_jumping_ = true;
-                player.jump_buffer_timer_ = 0.0f;
-                player.coyote_timer_ = 0.0f;
+                player.jump_button_pressed_ = true; // prevent holding jump
             }
 
-            // VARIABLE JUMP HEIGHT:
-            if (player.is_jumping_)
+            // Reset jump_button_pressed_ when jump is released
+            if (!player.input_.jump_)
             {
-                // If jump button is released early and player is rising
-                if (!player.input_.jump_ && body.velocity().y < 0.0f)
-                {
-                    // Cut upward velocity to zero
-                    crackitos_core::math::Vec2f new_velocity = body.velocity();
-                    new_velocity.y *= 0.5f; // cut vertical speed in half for softer fall
-                    body.set_velocity(new_velocity);
+                player.jump_button_pressed_ = false;
+            }
 
-                    player.is_jumping_ = false;
-                }
+            // --- Shockwave ---
+            if (player.input_.shockwave_ && player.CanUseShockwave())
+            {
+                // TODO shockwave logic
+                player.shockwave_cooldown_ = 6.0f;
             }
         }
     }
@@ -169,10 +155,8 @@ namespace spacebagarre
             players_[i].body_ = other.players_[i].body_;
             players_[i].collider_ = other.players_[i].collider_;
             players_[i].input_ = other.players_[i].input_;
-            players_[i].jump_buffer_timer_ = other.players_[i].jump_buffer_timer_;
-            players_[i].coyote_timer_ = other.players_[i].coyote_timer_;
-            players_[i].is_grounded_ = other.players_[i].is_grounded_;
-            players_[i].is_jumping_ = other.players_[i].is_jumping_;
+            players_[i].respawn_timer_ = other.players_[i].respawn_timer_;
+            players_[i].shockwave_cooldown_ = other.players_[i].shockwave_cooldown_;
         }
     }
 
